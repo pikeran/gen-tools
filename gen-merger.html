@@ -92,6 +92,8 @@
     
         <!-- Divs para los resultados -->
         <div id="result_1" class="result">
+            <div id="result_1_title" class="">
+             </div>
             <ul id="result_1_keys"></ul>
         </div>
         <div id="result_2" class="result"></div>
@@ -169,13 +171,15 @@
                         }
                     }
 
-                    document.getElementById('result_1').innerHTML=JSON.stringify(file_1);
-                    for (var key in file_1){
-                        var li = document.createElement("li");
-                        li.innerHTML = key;
-                        var ul = document.getElementById('result_1_keys');
-                        ul.appendChild(li);
-                    }
+                
+                    
+                    $("#result_1_title").append("<h3> Fichero 1 -> Gen :</h3>");
+                    
+                    Object.keys(file_1).forEach(function(key){
+                            console.log(key);
+                            $("#result_1_keys").append("<li>"+key+"</li>");
+                    });
+
                    
                 
                 } // FIN del Onload
