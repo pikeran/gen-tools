@@ -92,20 +92,23 @@
     
         <!-- Divs para los resultados -->
         <div id="result_1" class="result">
-            <div id="result_1_title" class="">
-             </div>
+            <div id="result_1_title" class=""></div>
             <ul id="result_1_keys"></ul>
         </div>
-        <div id="result_2" class="result"></div>
+        <div id="result_2" class="result">
+            <div id="result_2_title" class=""></div>
             <ul id="result_2_keys"></ul>
         </div>
-        <div id="result_3" class="result"></div>
+        <div id="result_3" class="result">
+            <div id="result_3_title" class=""></div>
             <ul id="result_3_keys"></ul>
         </div>
-        <div id="result_4" class="result"></div>
+        <div id="result_4" class="result">
+            <div id="result_4_title" class=""></div>
             <ul id="result_4_keys"></ul>
         </div>
-        <div id="result_5" class="result"></div>
+        <div id="result_5" class="result">
+            <div id="result_5_title" class=""></div>
             <ul id="result_5_keys"></ul>
         </div>
         
@@ -172,7 +175,7 @@
                     }
 
                 
-                    
+                    // Custom data         
                     $("#result_1_title").append("<h3> Fichero 1 -> Gen :</h3>");
                     
                     Object.keys(file_1).forEach(function(key){
@@ -214,7 +217,15 @@
                         }
                     }
 
-                    document.getElementById('result_2').innerHTML=JSON.stringify(file_2);
+                // Custom data         
+                    $("#result_2_title").append("<h3> Fichero 2 -> Gen :</h3>");
+                    
+                    Object.keys(file_2).forEach(function(key){
+                            console.log(key);
+                            $("#result_2_keys").append("<li>"+key+"</li>");
+                    });
+
+    //document.getElementById('result_2').innerHTML=JSON.stringify(file_2);
                 
                 } // FIN del Onload
 
@@ -247,7 +258,13 @@
                         }
                     }
 
-                    document.getElementById('result_3').innerHTML=JSON.stringify(file_3);
+                    $("#result_3_title").append("<h3> Fichero 3 -> Gen :</h3>");
+                    
+                    Object.keys(file_3).forEach(function(key){
+                            console.log(key);
+                            $("#result_3_keys").append("<li>"+key+"</li>");
+                    });
+
                 
                 } // FIN del Onload
 
@@ -280,8 +297,14 @@
                         }
                     }
 
-                    document.getElementById('result_4').innerHTML=JSON.stringify(file_4);
-                
+                    $("#result_4_title").append("<h3> Fichero 4 -> Gen :</h3>");
+                    
+                    Object.keys(file_4).forEach(function(key){
+                            console.log(key);
+                            $("#result_4_keys").append("<li>"+key+"</li>");
+                    });
+
+
                 } // FIN del Onload
 
                 r.readAsText(f); 
@@ -313,7 +336,14 @@
                         }
                     }
 
-                    document.getElementById('result_5').innerHTML=JSON.stringify(file_5);
+                     $("#result_5_title").append("<h3> Fichero 5 -> Gen :</h3>");
+                    
+                    Object.keys(file_5).forEach(function(key){
+                            console.log(key);
+                            $("#result_5_keys").append("<li>"+key+"</li>");
+                    });
+
+               
                 
                 } // FIN del Onload
 
@@ -344,8 +374,14 @@
                                 file_6[txt_spl[i]] += txt_spl[i+1];
                         }
                     }
+            
+                    $("#result_6_title").append("<h3> Fichero 6 -> Gen :</h3>");
+                    
+                    Object.keys(file_6).forEach(function(key){
+                            console.log(key);
+                            $("#result_6_keys").append("<li>"+key+"</li>");
+                    });
 
-                    document.getElementById('result_6').innerHTML=JSON.stringify(file_6);
                 
                 } // FIN del Onload
 
@@ -469,9 +505,9 @@
             var textoFinal = ""; 
             for (var index in mergedResult){
                     textoFinal+=index;
-                    textoFinal+="\n";
+                    textoFinal+="\r\n";
                     textoFinal+=mergedResult[index];
-                    textoFinal+="\n";
+                    textoFinal+="\r\n";
             }
             textoFinal = textoFinal.replace(/undefined/g,"");
             download("garen.txt",textoFinal);
