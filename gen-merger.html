@@ -15,14 +15,20 @@
 </head>
 
 <body>
-    <h1> Mergefiler 1.0 </h1>
-   
-    <div id="bag"><ul/></div>
-   
+
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h2 class="display-4"> GenTools - GarenMerger </h2>
+            <p class="lead"> A simple tool to combinate several genomic sequences.</p>
+        </div>
+    </div>
+
     <!--
     <input type="file" id="filesx" name="filesx[]"
         onchange="readmultifiles(this.files)" multiple=""/>
     -->
+    <div class="container">
     <table class="table table-bordered">
     <thead>
         <th scope="col"> Fichero </th>
@@ -77,8 +83,9 @@
     </table>
 
     <button class="btn btn-primary" onclick="fusiona()">Spin To Win!</button> 
+    </div>
     
-    <hr>
+    <div class="container">
     <h2>Resultado de la fusion</h2>
 
     <div id="result">
@@ -100,12 +107,19 @@
             <ul id="result_5_keys"></ul>
         </div>
         
+            
+    </div>
+    
+    </div>
+    <div class="container">
+    
         <h2> Final Build </h2>
         
         <div id="mergedResult" class="result"></div>
-    
-    </div>
 
+
+    </div>
+    
     <script>
 
         window.onload = function() {
