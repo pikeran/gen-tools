@@ -1,0 +1,468 @@
+<html>
+<head>
+   <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+     <!-- Latest compiled and minified CSS -->
+        
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+     
+     <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <h1> Mergefiler 1.0 </h1>
+   
+    <div id="bag"><ul/></div>
+   
+    <!--
+    <input type="file" id="filesx" name="filesx[]"
+        onchange="readmultifiles(this.files)" multiple=""/>
+    -->
+    <table class="table table-bordered">
+    <thead>
+        <th scope="col"> Fichero </th>
+        <th scope="col"> Ruta </th>
+    </thead>
+    <tbody>
+        <tr>
+            <th>
+                Fichero 1 
+            </th>
+            <th>
+                <input type="file" id="file_1" name="file_1"></th>
+        </tr>     
+        <tr>
+            <th>
+                Fichero 2
+            </th>
+            <th>
+                <input type="file" id="file_2" name="file_2"></th>
+        </tr>
+        <tr>
+            <th>
+                Fichero 3 
+            </th>
+            <th>
+                <input type="file" id="file_3" name="file_3"></th>
+        </tr>
+        <tr>
+            <th>
+                Fichero 4 
+            </th>
+            <th>
+                <input type="file" id="file_4" name="file_4"></th>
+        </tr>
+
+        <tr>
+            <th>
+                Fichero 5 
+            </th>
+            <th>
+                <input type="file" id="file_5" name="file_5"></th>
+        </tr>
+         <tr>
+            <th>
+                Fichero 6
+            </th>
+            <th>
+                <input type="file" id="file_6" name="file_6"></th>
+        </tr>
+
+    </tbody>
+    </table>
+
+    <button class="btn btn-primary" onclick="fusiona()">Spin To Win!</button> 
+    
+    <hr>
+    <h2>Resultado de la fusion</h2>
+
+    <div id="result">
+    
+        <!-- Divs para los resultados -->
+        <div id="result_1" class="result">
+            <ul id="result_1_keys"></ul>
+        </div>
+        <div id="result_2" class="result"></div>
+            <ul id="result_2_keys"></ul>
+        </div>
+        <div id="result_3" class="result"></div>
+            <ul id="result_3_keys"></ul>
+        </div>
+        <div id="result_4" class="result"></div>
+            <ul id="result_4_keys"></ul>
+        </div>
+        <div id="result_5" class="result"></div>
+            <ul id="result_5_keys"></ul>
+        </div>
+        
+        <h2> Final Build </h2>
+        
+        <div id="mergedResult" class="result"></div>
+    
+    </div>
+
+    <script>
+
+        window.onload = function() {
+            if (typeof window.FileReader !== 'function') {
+                alert("The file API isn't supported on this browser yet.");
+            }
+        }
+
+        // Funciones de utilidad
+
+        function cleanString(s){
+            s = s.replace(/\r/g, '');
+            return s;
+        }
+
+        var resultado= {};
+
+        // TODO 
+        // Sinceramente esto es mejorable, pero me gustaría tener
+        // una versión pronto de esto
+
+        var file_1 = {};
+        var file_2 = {};
+        var file_3 = {};
+        var file_4 = {};
+        var file_5 = {};
+
+        function readFile1(evt){
+            
+            var f = evt.target.files[0]; 
+
+            if (f) {
+                var r = new FileReader();
+                r.onload = function(e) { 
+                    var contents = e.target.result;
+                    contents = cleanString(contents);
+                    // TODO 
+                    // Seguimos aqui luego
+                    var txt_spl = contents.split("\n");
+                    for (var i = 0 ; i < txt_spl.length; i++){
+                        if (txt_spl[i].startsWith(">")){
+                            if (typeof(file_1[txt_spl[i]]) == "undefined"){
+                                file_1[txt_spl[i]]="";
+                            }
+                            
+                                file_1[txt_spl[i]] += txt_spl[i+1];
+                        }
+                    }
+
+                    document.getElementById('result_1').innerHTML=JSON.stringify(file_1);
+                    for (var key in file_1){
+                        var li = document.createElement("li");
+                        li.innerHTML = key;
+                        var ul = document.getElementById('result_1_keys');
+                        ul.appendChild(li);
+                    }
+                   
+                
+                } // FIN del Onload
+
+                r.readAsText(f); 
+            }
+        }
+
+        document.getElementById('file_1').addEventListener('change', readFile1, false);
+
+
+
+        function readFile2(evt){
+            
+            var f = evt.target.files[0]; 
+
+            if (f) {
+                var r = new FileReader();
+                r.onload = function(e) { 
+                    var contents = e.target.result;
+                    contents = cleanString(contents);
+                    // TODO 
+                    // Seguimos aqui luego
+                    var txt_spl = contents.split("\n");
+                    for (var i = 0 ; i < txt_spl.length; i++){
+                        if (txt_spl[i].startsWith(">")){
+                            if (typeof(file_2[txt_spl[i]]) == "undefined"){
+                                file_2[txt_spl[i]]="";
+                            }
+                            
+                                file_2[txt_spl[i]] += txt_spl[i+1];
+                        }
+                    }
+
+                    document.getElementById('result_2').innerHTML=JSON.stringify(file_2);
+                
+                } // FIN del Onload
+
+                r.readAsText(f); 
+            }
+        }
+
+        document.getElementById('file_2').addEventListener('change', readFile2, false);
+
+
+        function readFile3(evt){
+            
+            var f = evt.target.files[0]; 
+
+            if (f) {
+                var r = new FileReader();
+                r.onload = function(e) { 
+                    var contents = e.target.result;
+                    contents = cleanString(contents);
+                    // TODO 
+                    // Seguimos aqui luego
+                    var txt_spl = contents.split("\n");
+                    for (var i = 0 ; i < txt_spl.length; i++){
+                        if (txt_spl[i].startsWith(">")){
+                            if (typeof(file_3[txt_spl[i]]) == "undefined"){
+                                file_3[txt_spl[i]]="";
+                            }
+                            
+                                file_3[txt_spl[i]] += txt_spl[i+1];
+                        }
+                    }
+
+                    document.getElementById('result_3').innerHTML=JSON.stringify(file_3);
+                
+                } // FIN del Onload
+
+                r.readAsText(f); 
+            }
+        }
+
+        document.getElementById('file_3').addEventListener('change', readFile1, false);
+
+
+        function readFile4(evt){
+            
+            var f = evt.target.files[0]; 
+
+            if (f) {
+                var r = new FileReader();
+                r.onload = function(e) { 
+                    var contents = e.target.result;
+                    contents = cleanString(contents);
+                    // TODO 
+                    // Seguimos aqui luego
+                    var txt_spl = contents.split("\n");
+                    for (var i = 0 ; i < txt_spl.length; i++){
+                        if (txt_spl[i].startsWith(">")){
+                            if (typeof(file_4[txt_spl[i]]) == "undefined"){
+                                file_4[txt_spl[i]]="";
+                            }
+                            
+                                file_4[txt_spl[i]] += txt_spl[i+1];
+                        }
+                    }
+
+                    document.getElementById('result_4').innerHTML=JSON.stringify(file_4);
+                
+                } // FIN del Onload
+
+                r.readAsText(f); 
+            }
+        }
+
+        document.getElementById('file_4').addEventListener('change', readFile4, false);
+
+
+        function readFile5(evt){
+            
+            var f = evt.target.files[0]; 
+
+            if (f) {
+                var r = new FileReader();
+                r.onload = function(e) { 
+                    var contents = e.target.result;
+                    contents = cleanString(contents);
+                    // TODO 
+                    // Seguimos aqui luego
+                    var txt_spl = contents.split("\n");
+                    for (var i = 0 ; i < txt_spl.length; i++){
+                        if (txt_spl[i].startsWith(">")){
+                            if (typeof(file_5[txt_spl[i]]) == "undefined"){
+                                file_5[txt_spl[i]]="";
+                            }
+                            
+                                file_5[txt_spl[i]] += txt_spl[i+1];
+                        }
+                    }
+
+                    document.getElementById('result_5').innerHTML=JSON.stringify(file_5);
+                
+                } // FIN del Onload
+
+                r.readAsText(f); 
+            }
+        }
+
+        document.getElementById('file_5').addEventListener('change', readFile5, false);
+
+        function readFile6(evt){
+            
+            var f = evt.target.files[0]; 
+
+            if (f) {
+                var r = new FileReader();
+                r.onload = function(e) { 
+                    var contents = e.target.result;
+                    contents = cleanString(contents);
+                    // TODO 
+                    // Seguimos aqui luego
+                    var txt_spl = contents.split("\n");
+                    for (var i = 0 ; i < txt_spl.length; i++){
+                        if (txt_spl[i].startsWith(">")){
+                            if (typeof(file_6[txt_spl[i]]) == "undefined"){
+                                file_6[txt_spl[i]]="";
+                            }
+                            
+                                file_6[txt_spl[i]] += txt_spl[i+1];
+                        }
+                    }
+
+                    document.getElementById('result_6').innerHTML=JSON.stringify(file_6);
+                
+                } // FIN del Onload
+
+                r.readAsText(f); 
+            }
+        }
+
+        document.getElementById('file_6').addEventListener('change', readFile6, false);
+
+
+
+
+        function readmultifiles(files) {
+            var ul = document.querySelector("#bag>ul");
+            while (ul.hasChildNodes()) {
+                ul.removeChild(ul.firstChild);
+            }
+            // Read first file
+            setup_reader(files, 0);
+            console.log(resultado);
+        }
+
+    // Don't define functions in functions in functions, when possible.
+
+        function setup_reader(files, i) {
+            var file = files[i];
+            var name = file.name;
+
+            var reader = new FileReader();
+            reader.onload = function(e){
+                readerLoaded(e, files, i, name);
+            };
+            reader.readAsText(file);
+            // After reading, read the next file.
+        }
+
+        function readerLoaded(e, files, i, name) {
+            // get file content  
+            var txt = e.target.result;
+
+            var txtspliteado = txt.split("\n");
+
+            for (var i = 0;i< txtspliteado.length; i++){
+
+              console.log(txtspliteado[i]);
+              if (txtspliteado[i].startsWith(">")){
+                  if ( typeof(resultado[txtspliteado[i]]) == "undefined"){
+                    resultado[txtspliteado[i]]="";
+                  }
+                   resultado[txtspliteado[i]] += txtspliteado[i+1];
+              }
+            }
+            /*
+            txt.split("\n").forEach(function(datos){
+
+                resultfield = document.querySelector("#result");
+                console.log(datos);
+                resultfield.innerHTML+="<hr>";
+                resultfield.innerHTML+=datos;
+                resultfield.innerHTML+="<br>";
+            });
+
+            */
+
+            var li = document.createElement("li");
+            li.innerHTML = name;
+            var ul = document.querySelector("#bag>ul");
+            ul.appendChild(li);
+
+            // If there's a file left to load
+            if (i < files.length - 1) {
+                // Load the next file
+                setup_reader(files, i+1);
+            }
+        }   
+
+        function download(filename, text) {
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            element.setAttribute('download', filename);
+
+            element.style.display = 'none';
+            document.body.appendChild(element);
+
+            element.click();
+
+            document.body.removeChild(element);
+        }
+
+
+
+        function getFiles(){
+            var files = [];
+            if ( JSON.stringify(file_1) != "{}") files.push(file_1);
+            if ( JSON.stringify(file_2) != "{}") files.push(file_2);
+            if ( JSON.stringify(file_3) != "{}") files.push(file_3);
+            if ( JSON.stringify(file_4) != "{}") files.push(file_4);
+            if ( JSON.stringify(file_5) != "{}") files.push(file_5);
+            if ( JSON.stringify(file_6) != "{}") files.push(file_6);
+            return files;
+        }
+
+        
+        var mergedResult = {};
+    
+        function fusiona(){
+
+            var files = getFiles();
+            
+            for (var i = 0; i < files.length ; i++){
+                
+                // Recorremos los objetos
+                for (var index in files[i]){
+                    if (mergedResult[index] == "undefined"){
+                        mergedResult[index] = "";
+                    }
+                    mergedResult[index] += files[i][index];
+                }
+            }
+            // Recorremos ahora para crear el fichero txt
+            var textoFinal = ""; 
+            for (var index in mergedResult){
+                    textoFinal+=index;
+                    textoFinal+="\n";
+                    textoFinal+=mergedResult[index];
+                    textoFinal+="\n";
+            }
+            textoFinal = textoFinal.replace(/undefined/g,"");
+            download("garen.txt",textoFinal);
+           
+
+            document.getElementById('mergedResult').innerHTML = JSON.stringify(mergedResult);
+        }
+    </script>
+
+    
+</body>
+</html>
