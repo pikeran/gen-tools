@@ -29,6 +29,7 @@
         onchange="readmultifiles(this.files)" multiple=""/>
     -->
     <div class="container">
+        <button type="button" class="btn btn-success" onClick="window.location.href=window.location.href">Recargar ... </button>
     <table class="table table-bordered">
     <thead>
         <th scope="col"> Fichero </th>
@@ -81,7 +82,10 @@
 
     </tbody>
     </table>
-
+    
+    <div id="messages">
+    </div>
+    
     <button class="btn btn-primary" onclick="fusiona()">Spin To Win!</button> 
     </div>
     
@@ -434,18 +438,6 @@
                    resultado[txtspliteado[i]] += txtspliteado[i+1];
               }
             }
-            /*
-            txt.split("\n").forEach(function(datos){
-
-                resultfield = document.querySelector("#result");
-                console.log(datos);
-                resultfield.innerHTML+="<hr>";
-                resultfield.innerHTML+=datos;
-                resultfield.innerHTML+="<br>";
-            });
-
-            */
-
             var li = document.createElement("li");
             li.innerHTML = name;
             var ul = document.querySelector("#bag>ul");
@@ -490,7 +482,9 @@
         function fusiona(){
 
             var files = getFiles();
-            
+            var listOfIndex = [];
+            var textoFinal = ""; 
+
             for (var i = 0; i < files.length ; i++){
                 
                 // Recorremos los objetos
@@ -499,10 +493,20 @@
                         mergedResult[index] = "";
                     }
                     mergedResult[index] += files[i][index];
-                }
+
+                    if ( i == 0){
+                        listOfIndex.push(index);
+                    }else{
+                        if (! listOfIndex.includes(index)){
+                            var msg = "La CLAVE "+ index +" no esta en el primer fichero";
+                            $("#messages").append("<div class=\"alert alert-warning\" role=\"alert\">"+msg+"</div>");
+                            textoFinal+=msg + "\r\n";
+                        }
+                    }
+                               
+                   }
             }
             // Recorremos ahora para crear el fichero txt
-            var textoFinal = ""; 
             for (var index in mergedResult){
                     textoFinal+=index;
                     textoFinal+="\r\n";
