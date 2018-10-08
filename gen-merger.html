@@ -179,7 +179,11 @@
                     }
 
                 
-                    // Custom data         
+                    // Custom data
+
+
+                    //vaciamos elemento para evitar duplicado de titulo.ERROR   
+                    document.getElementById("result_1_title").innerHTML="";   
                     $("#result_1_title").append("<h3> Fichero 1 -> Gen :</h3>");
                     
                     Object.keys(file_1).forEach(function(key){
@@ -206,6 +210,7 @@
             if (f) {
                 var r = new FileReader();
                 r.onload = function(e) { 
+                   
                     var contents = e.target.result;
                     contents = cleanString(contents);
                     // TODO 
@@ -221,7 +226,8 @@
                         }
                     }
 
-                // Custom data         
+                // Custom data    
+                    document.getElementById("result_2_title").innerHTML="";      
                     $("#result_2_title").append("<h3> Fichero 2 -> Gen :</h3>");
                     
                     Object.keys(file_2).forEach(function(key){
@@ -261,7 +267,7 @@
                                 file_3[txt_spl[i]] += txt_spl[i+1];
                         }
                     }
-
+                    document.getElementById("result_3_title").innerHTML=""; 
                     $("#result_3_title").append("<h3> Fichero 3 -> Gen :</h3>");
                     
                     Object.keys(file_3).forEach(function(key){
@@ -300,7 +306,7 @@
                                 file_4[txt_spl[i]] += txt_spl[i+1];
                         }
                     }
-
+                    document.getElementById("result_4_title").innerHTML=""; 
                     $("#result_4_title").append("<h3> Fichero 4 -> Gen :</h3>");
                     
                     Object.keys(file_4).forEach(function(key){
@@ -339,7 +345,7 @@
                                 file_5[txt_spl[i]] += txt_spl[i+1];
                         }
                     }
-
+                    document.getElementById("result_5_title").innerHTML="";    
                      $("#result_5_title").append("<h3> Fichero 5 -> Gen :</h3>");
                     
                     Object.keys(file_5).forEach(function(key){
@@ -378,7 +384,7 @@
                                 file_6[txt_spl[i]] += txt_spl[i+1];
                         }
                     }
-            
+                    document.getElementById("result_6_title").innerHTML=""; 
                     $("#result_6_title").append("<h3> Fichero 6 -> Gen :</h3>");
                     
                     Object.keys(file_6).forEach(function(key){
