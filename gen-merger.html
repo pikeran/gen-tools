@@ -115,7 +115,6 @@
             <div id="result_5_title" class=""></div>
             <ul id="result_5_keys"></ul>
         </div>
-
         <!--AÑADIDO aqui faltaba el div 6 de resultados XD-->
         <div id="result_6" class="result">
             <div id="result_6_title" class=""></div>
@@ -150,6 +149,15 @@
         function cleanString(s){
             s = s.replace(/\r/g, '');
             return s;
+        }
+
+        function clearForm(){
+          file_1 = {};
+          file_2 = {};
+          file_3 = {};
+          file_4 = {};
+          file_5 = {};
+          file_6 = {};
         }
 
         var resultado= {};
@@ -538,11 +546,11 @@
                     }else{
                         if (! listOfIndex.includes(index)){
                             var msg = "La CLAVE "+ index +" no esta en el primer fichero";
+
                             $("#messages").append("<div class=\"alert alert-warning\" role=\"alert\">"+msg+"</div>");
                             textoFinal+=msg + "\r\n";
                         }
                     }
-
                    }
             }
             // Recorremos ahora para crear el fichero txt
@@ -554,10 +562,13 @@
             }
             textoFinal = textoFinal.replace(/undefined/g,"");
             download("garen.txt",textoFinal);
-
-
             document.getElementById('mergedResult').innerHTML = JSON.stringify(mergedResult);
+            clearForm();
         }
+
+
+
+
     </script>
 
 
