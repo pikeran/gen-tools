@@ -4,9 +4,9 @@
      <meta name="viewport" content="width=device-width, initial-scale=1">
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
      <!-- Latest compiled and minified CSS -->
-        
+
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-     
+
      <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
@@ -38,11 +38,11 @@
     <tbody>
         <tr>
             <th>
-                Fichero 1 
+                Fichero 1
             </th>
             <th>
                 <input type="file" id="file_1" name="file_1"></th>
-        </tr>     
+        </tr>
         <tr>
             <th>
                 Fichero 2
@@ -52,14 +52,14 @@
         </tr>
         <tr>
             <th>
-                Fichero 3 
+                Fichero 3
             </th>
             <th>
                 <input type="file" id="file_3" name="file_3"></th>
         </tr>
         <tr>
             <th>
-                Fichero 4 
+                Fichero 4
             </th>
             <th>
                 <input type="file" id="file_4" name="file_4"></th>
@@ -67,7 +67,7 @@
 
         <tr>
             <th>
-                Fichero 5 
+                Fichero 5
             </th>
             <th>
                 <input type="file" id="file_5" name="file_5"></th>
@@ -82,18 +82,18 @@
 
     </tbody>
     </table>
-    
+
     <div id="messages">
     </div>
-    
-    <button class="btn btn-primary" onclick="fusiona()">Spin To Win!</button> 
+
+    <button class="btn btn-primary" onclick="fusiona()">Spin To Win!</button>
     </div>
-    
+
     <div class="container">
     <h2>Resultado de la fusion</h2>
 
     <div id="result">
-    
+
         <!-- Divs para los resultados -->
         <div id="result_1" class="result">
             <div id="result_1_title" class=""></div>
@@ -115,21 +115,29 @@
             <div id="result_5_title" class=""></div>
             <ul id="result_5_keys"></ul>
         </div>
-        
-            
+
+        <!--AÑADIDO aqui faltaba el div 6 de resultados XD-->
+        <div id="result_6" class="result">
+            <div id="result_6_title" class=""></div>
+            <ul id="result_6_keys"></ul>
+        </div>
+
+
     </div>
-    
+
     </div>
     <div class="container">
-    
+
         <h2> Final Build </h2>
-        
+
         <div id="mergedResult" class="result"></div>
 
 
     </div>
-    
+
     <script>
+
+        //Excepción para cuando la carga de archivos sea de distinto formato del establecido.
 
         window.onload = function() {
             if (typeof window.FileReader !== 'function') {
@@ -146,7 +154,7 @@
 
         var resultado= {};
 
-        // TODO 
+        // TODO
         // Sinceramente esto es mejorable, pero me gustaría tener
         // una versión pronto de esto
 
@@ -157,45 +165,50 @@
         var file_5 = {};
 
         function readFile1(evt){
-            
-            var f = evt.target.files[0]; 
+
+            var f = evt.target.files[0];
+            //AÑADIDO
+            file_1 = {};
 
             if (f) {
                 var r = new FileReader();
-                r.onload = function(e) { 
+                r.onload = function(e) {
                     var contents = e.target.result;
                     contents = cleanString(contents);
-                    // TODO 
-                    // Seguimos aqui luego
+                    // TODO
+                    // Seguimos aqui luego y hacemos split con \n : txt_slp = array con contenido.
                     var txt_spl = contents.split("\n");
                     for (var i = 0 ; i < txt_spl.length; i++){
                         if (txt_spl[i].startsWith(">")){
                             if (typeof(file_1[txt_spl[i]]) == "undefined"){
                                 file_1[txt_spl[i]]="";
                             }
-                            
+
                                 file_1[txt_spl[i]] += txt_spl[i+1];
                         }
                     }
 
-                
+
                     // Custom data
 
 
-                    //vaciamos elemento para evitar duplicado de titulo.ERROR   
-                    document.getElementById("result_1_title").innerHTML="";   
+                    //vaciamos elemento title para evitar duplicado de titulo
+                    // AÑADIDO
+                    document.getElementById("result_1_title").innerHTML="";
                     $("#result_1_title").append("<h3> Fichero 1 -> Gen :</h3>");
-                    
+
+                    //AÑADIDO
+                    document.getElementById("result_1_keys").innerHTML="";
                     Object.keys(file_1).forEach(function(key){
                             console.log(key);
                             $("#result_1_keys").append("<li>"+key+"</li>");
                     });
 
-                   
-                
+
+
                 } // FIN del Onload
 
-                r.readAsText(f); 
+                r.readAsText(f);
             }
         }
 
@@ -204,16 +217,18 @@
 
 
         function readFile2(evt){
-            
-            var f = evt.target.files[0]; 
+
+            var f = evt.target.files[0];
+            //AÑADIDO
+            file_2 = {};
 
             if (f) {
                 var r = new FileReader();
-                r.onload = function(e) { 
-                   
+                r.onload = function(e) {
+
                     var contents = e.target.result;
                     contents = cleanString(contents);
-                    // TODO 
+                    // TODO
                     // Seguimos aqui luego
                     var txt_spl = contents.split("\n");
                     for (var i = 0 ; i < txt_spl.length; i++){
@@ -221,25 +236,27 @@
                             if (typeof(file_2[txt_spl[i]]) == "undefined"){
                                 file_2[txt_spl[i]]="";
                             }
-                            
+
                                 file_2[txt_spl[i]] += txt_spl[i+1];
                         }
                     }
 
-                // Custom data    
-                    document.getElementById("result_2_title").innerHTML="";      
+                // Custom data
+                //AÑADIDO
+                    document.getElementById("result_2_title").innerHTML="";
                     $("#result_2_title").append("<h3> Fichero 2 -> Gen :</h3>");
-                    
+
+                    document.getElementById("result_2_keys").innerHTML="";
                     Object.keys(file_2).forEach(function(key){
                             console.log(key);
                             $("#result_2_keys").append("<li>"+key+"</li>");
                     });
 
     //document.getElementById('result_2').innerHTML=JSON.stringify(file_2);
-                
+
                 } // FIN del Onload
 
-                r.readAsText(f); 
+                r.readAsText(f);
             }
         }
 
@@ -247,15 +264,17 @@
 
 
         function readFile3(evt){
-            
-            var f = evt.target.files[0]; 
+
+            var f = evt.target.files[0];
+            //AÑADIDO
+            file_3 = {};
 
             if (f) {
                 var r = new FileReader();
-                r.onload = function(e) { 
+                r.onload = function(e) {
                     var contents = e.target.result;
                     contents = cleanString(contents);
-                    // TODO 
+                    // TODO
                     // Seguimos aqui luego
                     var txt_spl = contents.split("\n");
                     for (var i = 0 ; i < txt_spl.length; i++){
@@ -263,38 +282,43 @@
                             if (typeof(file_3[txt_spl[i]]) == "undefined"){
                                 file_3[txt_spl[i]]="";
                             }
-                            
+
                                 file_3[txt_spl[i]] += txt_spl[i+1];
                         }
                     }
-                    document.getElementById("result_3_title").innerHTML=""; 
+                    //AÑADIDO
+                    document.getElementById("result_3_title").innerHTML="";
                     $("#result_3_title").append("<h3> Fichero 3 -> Gen :</h3>");
-                    
+
+                    document.getElementById("result_3_keys").innerHTML="";
                     Object.keys(file_3).forEach(function(key){
                             console.log(key);
                             $("#result_3_keys").append("<li>"+key+"</li>");
                     });
 
-                
+
                 } // FIN del Onload
 
-                r.readAsText(f); 
+                r.readAsText(f);
             }
         }
 
-        document.getElementById('file_3').addEventListener('change', readFile1, false);
+        //AQUI ARREGLO DE COPI-PASTE XD
+        document.getElementById('file_3').addEventListener('change', readFile3, false);
 
 
         function readFile4(evt){
-            
-            var f = evt.target.files[0]; 
+
+            var f = evt.target.files[0];
+            //AÑADIDO
+            file_4 = {};
 
             if (f) {
                 var r = new FileReader();
-                r.onload = function(e) { 
+                r.onload = function(e) {
                     var contents = e.target.result;
                     contents = cleanString(contents);
-                    // TODO 
+                    // TODO
                     // Seguimos aqui luego
                     var txt_spl = contents.split("\n");
                     for (var i = 0 ; i < txt_spl.length; i++){
@@ -302,13 +326,14 @@
                             if (typeof(file_4[txt_spl[i]]) == "undefined"){
                                 file_4[txt_spl[i]]="";
                             }
-                            
+
                                 file_4[txt_spl[i]] += txt_spl[i+1];
                         }
                     }
-                    document.getElementById("result_4_title").innerHTML=""; 
+                    document.getElementById("result_4_title").innerHTML="";
                     $("#result_4_title").append("<h3> Fichero 4 -> Gen :</h3>");
-                    
+
+                    document.getElementById("result_4_keys").innerHTML="";
                     Object.keys(file_4).forEach(function(key){
                             console.log(key);
                             $("#result_4_keys").append("<li>"+key+"</li>");
@@ -317,7 +342,7 @@
 
                 } // FIN del Onload
 
-                r.readAsText(f); 
+                r.readAsText(f);
             }
         }
 
@@ -325,15 +350,17 @@
 
 
         function readFile5(evt){
-            
-            var f = evt.target.files[0]; 
+
+            var f = evt.target.files[0];
+            //AÑADIDO
+            file_5 = {};
 
             if (f) {
                 var r = new FileReader();
-                r.onload = function(e) { 
+                r.onload = function(e) {
                     var contents = e.target.result;
                     contents = cleanString(contents);
-                    // TODO 
+                    // TODO
                     // Seguimos aqui luego
                     var txt_spl = contents.split("\n");
                     for (var i = 0 ; i < txt_spl.length; i++){
@@ -341,38 +368,42 @@
                             if (typeof(file_5[txt_spl[i]]) == "undefined"){
                                 file_5[txt_spl[i]]="";
                             }
-                            
+
                                 file_5[txt_spl[i]] += txt_spl[i+1];
                         }
                     }
-                    document.getElementById("result_5_title").innerHTML="";    
+                    //AÑADIDO
+                    document.getElementById("result_5_title").innerHTML="";
                      $("#result_5_title").append("<h3> Fichero 5 -> Gen :</h3>");
-                    
+
+                    document.getElementById("result_5_keys").innerHTML="";
                     Object.keys(file_5).forEach(function(key){
                             console.log(key);
                             $("#result_5_keys").append("<li>"+key+"</li>");
                     });
 
-               
-                
+
+
                 } // FIN del Onload
 
-                r.readAsText(f); 
+                r.readAsText(f);
             }
         }
 
         document.getElementById('file_5').addEventListener('change', readFile5, false);
 
         function readFile6(evt){
-            
-            var f = evt.target.files[0]; 
+
+            var f = evt.target.files[0];
+            //AÑADIDO
+            file_6 = {};
 
             if (f) {
                 var r = new FileReader();
-                r.onload = function(e) { 
+                r.onload = function(e) {
                     var contents = e.target.result;
                     contents = cleanString(contents);
-                    // TODO 
+                    // TODO
                     // Seguimos aqui luego
                     var txt_spl = contents.split("\n");
                     for (var i = 0 ; i < txt_spl.length; i++){
@@ -380,22 +411,24 @@
                             if (typeof(file_6[txt_spl[i]]) == "undefined"){
                                 file_6[txt_spl[i]]="";
                             }
-                            
+
                                 file_6[txt_spl[i]] += txt_spl[i+1];
                         }
                     }
-                    document.getElementById("result_6_title").innerHTML=""; 
+                    //AÑADIDO
+                    document.getElementById("result_6_title").innerHTML="";
                     $("#result_6_title").append("<h3> Fichero 6 -> Gen :</h3>");
-                    
+
+                    document.getElementById("result_6_keys").innerHTML="";
                     Object.keys(file_6).forEach(function(key){
                             console.log(key);
                             $("#result_6_keys").append("<li>"+key+"</li>");
                     });
 
-                
+
                 } // FIN del Onload
 
-                r.readAsText(f); 
+                r.readAsText(f);
             }
         }
 
@@ -429,7 +462,7 @@
         }
 
         function readerLoaded(e, files, i, name) {
-            // get file content  
+            // get file content
             var txt = e.target.result;
 
             var txtspliteado = txt.split("\n");
@@ -454,7 +487,7 @@
                 // Load the next file
                 setup_reader(files, i+1);
             }
-        }   
+        }
 
         function download(filename, text) {
             var element = document.createElement('a');
@@ -482,17 +515,17 @@
             return files;
         }
 
-        
+
         var mergedResult = {};
-    
+
         function fusiona(){
 
             var files = getFiles();
             var listOfIndex = [];
-            var textoFinal = ""; 
+            var textoFinal = "";
 
             for (var i = 0; i < files.length ; i++){
-                
+
                 // Recorremos los objetos
                 for (var index in files[i]){
                     if (mergedResult[index] == "undefined"){
@@ -509,7 +542,7 @@
                             textoFinal+=msg + "\r\n";
                         }
                     }
-                               
+
                    }
             }
             // Recorremos ahora para crear el fichero txt
@@ -521,12 +554,12 @@
             }
             textoFinal = textoFinal.replace(/undefined/g,"");
             download("garen.txt",textoFinal);
-           
+
 
             document.getElementById('mergedResult').innerHTML = JSON.stringify(mergedResult);
         }
     </script>
 
-    
+
 </body>
 </html>
