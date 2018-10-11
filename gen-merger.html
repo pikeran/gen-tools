@@ -41,7 +41,7 @@
                 Fichero 1
             </th>
             <th>
-                <input type="file" id="file_1" name="file_1"></th>
+                <input type="file"id="file_1" name="file_1"></th>
         </tr>
         <tr>
             <th>
@@ -79,6 +79,7 @@
             <th>
                 <input type="file" id="file_6" name="file_6"></th>
         </tr>
+        
 
     </tbody>
     </table>
@@ -138,6 +139,7 @@
 
         //Excepción para cuando la carga de archivos sea de distinto formato del establecido.
 
+
         window.onload = function() {
             if (typeof window.FileReader !== 'function') {
                 alert("The file API isn't supported on this browser yet.");
@@ -158,6 +160,7 @@
           file_4 = {};
           file_5 = {};
           file_6 = {};
+
         }
 
         var resultado= {};
@@ -528,6 +531,7 @@
 
         function fusiona(){
 
+            mergedResult = {};
             var files = getFiles();
             var listOfIndex = [];
             var textoFinal = "";
