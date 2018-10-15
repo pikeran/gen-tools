@@ -153,6 +153,22 @@
             return s;
         }
         
+        function limpiarResultados() {
+            document.getElementById("result_1_title").innerHTML="";
+            document.getElementById("result_1_keys").innerHTML="";
+            document.getElementById("result_2_title").innerHTML="";
+            document.getElementById("result_2_keys").innerHTML="";
+            document.getElementById("result_3_title").innerHTML="";
+            document.getElementById("result_3_keys").innerHTML="";
+            document.getElementById("result_4_title").innerHTML="";
+            document.getElementById("result_4_keys").innerHTML="";
+            document.getElementById("result_5_title").innerHTML="";
+            document.getElementById("result_5_keys").innerHTML="";
+            document.getElementById("result_6_title").innerHTML="";
+            document.getElementById("result_6_keys").innerHTML="";
+
+            
+        }
 
         function limpiarInputFile(){
         
@@ -175,7 +191,7 @@
             file_4 = {};
             file_5 = {};
             file_6 = {};
-            
+       
         }
 
         var resultado= {};
@@ -551,43 +567,45 @@
             var files = getFiles();
             var listOfIndex = [];
             var textoFinal = "";
-
-            for (var i = 0; i < files.length ; i++){
-
-                // Recorremos los objetos
-                for (var index in files[i]){
-                    if (mergedResult[index] == "undefined"){
-                        mergedResult[index] = "";
-                    }
-                    mergedResult[index] += files[i][index];
-
-                    if ( i == 0){
-                        listOfIndex.push(index);
-                    }else{
-                        if (! listOfIndex.includes(index)){
-                            var msg = "La CLAVE "+ index +" no esta en el primer fichero";
-
-                            $("#messages").append("<div class=\"alert alert-warning\" role=\"alert\">"+msg+"</div>");
-                            textoFinal+=msg + "\r\n";
-                        }
-                    }
-                   }
+            
+            //PARA COMPROBAR QUE NO HAY ARCHIVOS SELECCIONADOS.
+            if(files.length == 0){
+                alert("No hay archivos");
+                limpiarResultados();
             }
-            // Recorremos ahora para crear el fichero txt
-            for (var index in mergedResult){
-                    textoFinal+=index;
-                    textoFinal+="\r\n";
-                    textoFinal+=mergedResult[index];
-                    textoFinal+="\r\n";
-            }
-            textoFinal = textoFinal.replace(/undefined/g,"");
-            download("garen.txt",textoFinal);
-            document.getElementById('mergedResult').innerHTML = JSON.stringify(mergedResult);
-            limpiarInputFile();
+                for (var i = 0; i < files.length ; i++){
 
-
+        // RECORREMOS OBJETOS.
+        for (var index in files[i]){
+            if (mergedResult[index] == "undefined"){
+            mergedResult[index] = "";
         }
+            mergedResult[index] += files[i][index];
 
+            if ( i == 0){
+            listOfIndex.push(index);
+            }else{
+                if (! listOfIndex.includes(index)){
+                var msg = "La CLAVE "+ index +" no esta en el primer fichero";
+
+            $("#messages").append("<div class=\"alert alert-warning\" role=\"alert\">"+msg+"</div>");
+            textoFinal+=msg + "\r\n";
+        }
+    }
+   }
+}
+// Recorremos ahora para crear el fichero txt
+    for (var index in mergedResult){
+        textoFinal+=index;
+        textoFinal+="\r\n";
+        textoFinal+=mergedResult[index];
+        textoFinal+="\r\n";
+    }
+        textoFinal = textoFinal.replace(/undefined/g,"");
+        download("garen.txt",textoFinal);
+        document.getElementById('mergedResult').innerHTML = JSON.stringify(mergedResult);
+        limpiarInputFile();
+            }
     </script>
 
 
