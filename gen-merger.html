@@ -152,15 +152,30 @@
             s = s.replace(/\r/g, '');
             return s;
         }
+        
 
-        function clearForm(){
-          file_1 = {};
-          file_2 = {};
-          file_3 = {};
-          file_4 = {};
-          file_5 = {};
-          file_6 = {};
+        function limpiarInputFile(){
+        
+            var input1 = $('#' + "file_1");
+            input1.val("");
+            var input2 = $('#' + "file_2");
+            input2.val("");
+            var input3 = $('#' + "file_3");
+            input3.val("");
+            var input4 = $('#' + "file_4");
+            input4.val("");
+            var input5 = $('#' + "file_5");
+            input5.val("");
+            var input6 = $('#' + "file_6");
+            input6.val("");
 
+            file_1 = {};
+            file_2 = {};
+            file_3 = {};
+            file_4 = {};
+            file_5 = {};
+            file_6 = {};
+            
         }
 
         var resultado= {};
@@ -174,6 +189,7 @@
         var file_3 = {};
         var file_4 = {};
         var file_5 = {};
+        var file_6 = {};
 
         function readFile1(evt){
 
@@ -530,7 +546,7 @@
         var mergedResult = {};
 
         function fusiona(){
-
+            
             mergedResult = {};
             var files = getFiles();
             var listOfIndex = [];
@@ -567,11 +583,10 @@
             textoFinal = textoFinal.replace(/undefined/g,"");
             download("garen.txt",textoFinal);
             document.getElementById('mergedResult').innerHTML = JSON.stringify(mergedResult);
-            clearForm();
+            limpiarInputFile();
+
+
         }
-
-
-
 
     </script>
 
