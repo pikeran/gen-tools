@@ -166,10 +166,12 @@
             document.getElementById("result_5_keys").innerHTML="";
             document.getElementById("result_6_title").innerHTML="";
             document.getElementById("result_6_keys").innerHTML="";
-
-            
-
         }
+
+        function eliminacionError(padre) {
+            
+        }
+
 
         function limpiarInputFile(){
         
@@ -570,6 +572,12 @@
             var listOfIndex = [];
             var textoFinal = "";
             
+            //ELIMINACION DE DIV ERROR
+            if(document.getElementById('alert-error') != null ){
+                var e = document.getElementById('alert-error');
+                e.parentNode.removeChild(e);
+            }
+            
             //PARA COMPROBAR QUE NO HAY ARCHIVOS SELECCIONADOS.
             if(files.length == 0){
                 alert("No hay archivos");
@@ -590,7 +598,7 @@
                 if (! listOfIndex.includes(index)){
                 var msg = "La CLAVE "+ index +" no esta en el primer fichero";
 
-            $("#messages").append("<div class=\"alert alert-warning\" role=\"alert\">"+msg+"</div>");
+            $("#messages").append("<div class=\"alert alert-warning\" role=\"alert\" id=\"alert-error\">"+msg+"</div>");
             textoFinal+=msg + "\r\n";
         }
     }
