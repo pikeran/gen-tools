@@ -9,7 +9,7 @@
 
      <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="estilos.css">
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
@@ -168,8 +168,12 @@
             document.getElementById("result_6_keys").innerHTML="";
         }
 
-        function eliminacionError(padre) {
-            
+        function llamarGaren() {
+            $("#messages").append("<div class=\"imagen-garen\"id=\"garen\"><img src=\"img/spinGaren.gif\"></div>");
+            setTimeout("eliminarDiv(document.getElementById(\"garen\"))",2000);
+        }
+        function eliminarDiv(nameDiv) {
+           nameDiv.parentNode.removeChild(nameDiv);      
         }
 
 
@@ -574,8 +578,7 @@
             
             //ELIMINACION DE DIV ERROR
             if(document.getElementById('alert-error') != null ){
-                var e = document.getElementById('alert-error');
-                e.parentNode.removeChild(e);
+                eliminarDiv(document.getElementById('alert-error'));
             }
             
             //PARA COMPROBAR QUE NO HAY ARCHIVOS SELECCIONADOS.
@@ -614,6 +617,7 @@
         textoFinal = textoFinal.replace(/undefined/g,"");
         download("garen.txt",textoFinal);
         document.getElementById('mergedResult').innerHTML = JSON.stringify(mergedResult);
+        llamarGaren();
         limpiarInputFile();
             }
     </script>
