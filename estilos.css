@@ -12,3 +12,17 @@
     width: 100%;
     height: 100%;
 }
+.btn{
+    margin-bottom: 10;
+}
+#mergedResult{
+    border: solid 1px black;
+    display:table-cell;
+    vertical-align:middle;
+}
+#drop_zone {
+    margin-top: 10;
+    border: 1px solid cornflowerblue;
+    width:  200px;
+    height: 100px;
+  }

@@ -41,7 +41,10 @@
                 Fichero 1
             </th>
             <th>
-                <input type="file"id="file_1" name="file_1"></th>
+                <input type="file"id="file_1" name="file_1">
+                <div id = "drop_zone" ondrop= "dropHandler(event);" ondragover= "dragOverHandler(event);"><p>Arrastra y suelta uno o más archivos a esta zona ...</p></div>
+            </th>
+                
         </tr>
         <tr>
             <th>
@@ -152,6 +155,47 @@
             s = s.replace(/\r/g, '');
             return s;
         }
+        function dragOverHandler(ev) {
+            console.log('File(s) in drop zone');
+
+            ev.preventDefault();
+        }
+        function removeDragData(ev){
+            console.log('Borrando drag data');
+
+            if(ev.dataTransfer.items){
+                ev.dataTransfer.items.clear();
+            } else {
+                ev.dataTransfer.clearData();
+            }
+        }
+
+        function dropHandler(ev){
+        
+            console.log('File(s) dropped');
+
+            // Prevenir el comportamiento por defecto (Evitar que se abra el archivo)
+            ev.preventDefault();
+
+            if(ev.dataTransfer.items){
+                // Use la interfaz DataTransferItemList para acceder a los archivos
+                for (var i = 0 ; i < ev.dataTransfer.items.length;i++){
+                    // Si los elementos soltados no son archivos, retirarlos.
+                    if(ev.dataTransfer.items[i].kind === 'file'){
+                        var file = ev.dataTransfer.items[i].getAsFile();
+                        console.log('... file[' + i + '].name = ' + file.name);
+                        readFile1(file);
+                    }
+                }               
+                } else {
+                    //Usar dataTrasfer para acceder a los archivos.
+                    for (var i = 0; i < ev.dataTransfer.files.leght;i++){
+                        console.log('... file[' + i + '].name = ' + ev.dataTransfer.files[i].name); 
+                    }
+                }
+                // Pase el evento a removeDragData para la limpieza
+                removeDragData(ev);
+            }
         
         function limpiarResultados() {
             document.getElementById("result_1_title").innerHTML="";
@@ -198,8 +242,6 @@
             file_4 = {};
             file_5 = {};
             file_6 = {};
-       
-              
         }
 
         var resultado= {};
@@ -217,7 +259,11 @@
 
         function readFile1(evt){
 
-            var f = evt.target.files[0];
+            alert("readfile1");
+            console.log(evt);
+            //falta excepcion dependiendo de el tipo de archivo o file le pasemos si le pasamos evt desde drog convertirlo en evt.
+            //var f = evt.target.files[0];
+            var f = evt;
             //AÑADIDO
             file_1 = {};
 
